@@ -1,6 +1,5 @@
 package com.horbatenko.elasticsearch;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -13,7 +12,6 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.Query;
 
 import static java.util.Arrays.asList;
-import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.regexpQuery;
 
 @SpringBootApplication
@@ -27,15 +25,15 @@ public class ElasticsearchApplication {
 
         ElasticsearchOperations elasticsearchOperations = ctx.getBean(ElasticsearchOperations.class);
 
-//        Article article = new Article("Spring Data Elasticsearch new ");
-//        article.setAuthors(asList(new Author("John Alliot Smith"), new Author("John Doe")));
-//        System.out.println(articleRepository.save(article));
+        Article article = new Article("Spring Data Elasticsearch new ");
+        article.setAuthors(asList(new Author("John Alliot Smith"), new Author("John Doe")));
+        System.out.println(articleRepository.save(article));
 
-//        String nameToFind = "John Smith";
-//        Page<Article> articleByAuthorName
-//                = articleRepository.findByAuthorsName(nameToFind, PageRequest.of(0, 10));
-//        articleByAuthorName.getContent().stream()
-//                .forEach(System.out::println);
+        String nameToFind = "John Smith";
+        Page<Article> articleByAuthorName
+                = articleRepository.findByAuthorsName(nameToFind, PageRequest.of(0, 10));
+        articleByAuthorName.getContent().stream()
+                .forEach(System.out::println);
 
         Query searchQuery = new NativeSearchQueryBuilder()
                 .withFilter(regexpQuery("title", ".*started.*"))
